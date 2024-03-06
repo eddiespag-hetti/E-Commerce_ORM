@@ -3,58 +3,70 @@ const { Category, Product } = require("../../models");
 
 // The `/api/categories` endpoint
 
+// Find all Route
+// Find all categories
 router.get("/", async (req, res) => {
-  // find all categories
   try {
     const categories = await Category.findAll({
-      include: [Product],
+      include: [{ model: Product}],
     });
-    res.json(categories);
+    res.status(200).json(categories);
   } catch (err) {
     res.status(500).json(err.message);
   }
   // be sure to include its associated Products
 });
 
+// Finf by ID Route
 router.get("/:id", async (req, res) => {
-  // find one category by its `id` value
+  // Find one category by its ID
   try {
     const category = await Category.findByPk(req.params.id, {
-      include: [Product],
+      include: [{ model: Product}],
     });
-    res.json(category);
+    if (!categoryData) {
+      res.status(404).json({ message: 'No category was found with that id!' });
+      return;
+    }
+    res.status(200).json(category);
   } catch (err) {
     res.status(500).json(err.message);
   }
   // be sure to include its associated Products
 });
 
+
+// Post Route
+// Creates a new category
 router.post("/", async (req, res) => {
-  // create a new category
   try {
     const category = await Category.create(req.body);
-    res.json(category);
+    res.status(200).json(category);
   } catch (err) {
     res.status(500).json(err.message);
   }
 });
 
+
+// Update Route
 router.put("/:id", async (req, res) => {
-  // update a category by its `id` value
+  // Update a category by its ID
   try {
     const category = await Category.update(req.body, {
       where: {
         id: req.params.id,
       },
     });
-    res.json(category);
+    res.status(200).json(category);
   } catch (err) {
     res.status(500).json(err.message);
   }
 });
 
+
+// Delete Route
 router.delete("/:id", async (req, res) => {
-  // delete a category by its `id` value
+  // delete a category by its ID
   try {
     const category = await Category.destroy({
       where: {
