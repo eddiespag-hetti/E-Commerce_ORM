@@ -10,7 +10,6 @@ router.get("/", async (req, res) => {
       include: [
         {
           model: Product,
-          ProductTag,
         },
       ],
     });
@@ -21,7 +20,6 @@ router.get("/", async (req, res) => {
   // be sure to include its associated Product data
 });
 
-
 // Find a tag by it's ID
 
 router.get("/:id", async (req, res) => {
@@ -30,11 +28,10 @@ router.get("/:id", async (req, res) => {
       inclue: [
         {
           model: Product,
-          ProductTag,
-        }
+        },
       ],
     });
-    if (!tagData) {
+    if (!tag) {
       res.status(404).json({ message: "There was no tag found with that id!" });
       return;
     }
@@ -45,20 +42,17 @@ router.get("/:id", async (req, res) => {
   // be sure to include its associated Product data
 });
 
-
 // Create NEW tag route
 router.post("/", async (req, res) => {
-  
   try {
     const tag = await Tag.create({
-      tag_name: req.body.tag_name
+      tag_name: req.body.tag_name,
     });
     res.status(200).json(tag);
   } catch (err) {
     res.status(500).json(err.message);
   }
 });
-
 
 // Update tag Route
 // Update a tag's name by its ID
@@ -67,21 +61,18 @@ router.put("/:id", async (req, res) => {
     const tag = await Tag.update(req.body, {
       where: { id: req.params.id },
     });
-    res.json(200).json(tag);
-  } catch (error) {
+    res.json(200).json(tag).json("This tag was updated!");
+  } catch (err) {
     res.status(400).json(err.message);
   }
 });
 
-
 // Delete tag from it's ID
 router.delete("/:id", async (req, res) => {
-  
-
   try {
     const tagDeleted = await Tag.destroy({ where: { id: req.params.id } });
     res.status(200).json(tagDeleted);
-  } catch (error) {
+  } catch (err) {
     res.status(500).json(err.message);
   }
 });

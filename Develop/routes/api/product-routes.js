@@ -11,7 +11,9 @@ router.get("/", async (req, res) => {
       include: [
         {
           model: Category,
-          Tag,
+        },
+        {
+          model: Tag,
         },
       ],
     });
