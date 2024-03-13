@@ -47,7 +47,7 @@ In the the Categories, Products and Tags endpoints
 
 Please watch the provided video walkthrough link:
 
-- 
+- https://drive.google.com/file/d/1CWW1IZFtc-hfKeVVFvUh5bT_vjLZJbvO/view
 
 
 ## Usage 

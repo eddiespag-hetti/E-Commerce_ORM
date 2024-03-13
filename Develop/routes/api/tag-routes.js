@@ -63,7 +63,7 @@ router.put("/:id", async (req, res) => {
     const tag = await Tag.update(req.body, {
       where: { id: req.params.id },
     });
-    res.json(200).json({tag, message:"This tag was update successfully!"});
+    res.status(200).json({tag, message:"This tag was update successfully!"});
   } catch (err) {
     res.status(400).json(err.message);
   }
