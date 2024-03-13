@@ -65,7 +65,7 @@ router.post("/", async (req, res) => {
         return ProductTag.bulkCreate(productTagId);
       }
       // when theres no product tags, just respond with a status '200'
-      res.status(200).json(product);
+      res.status(200).json(product).json({message:  "Product created successfully."});
     })
     .then((productTagIds) => res.status(200).json(productTagIds))
     .catch((err) => {
@@ -127,10 +127,11 @@ router.delete("/:id", async (req, res) => {
         id: req.params.id,
       },
     });
-    res.status(200).json(product).json("Product has been deleted!");
+    res.status(200).json({ message: "Product has been deleted!" }); // Corrected response
   } catch (err) {
     res.status(500).json(err.message);
   }
 });
+
 
 module.exports = router;
