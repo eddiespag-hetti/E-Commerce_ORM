@@ -28,7 +28,7 @@ router.get("/:id", async (req, res) => {
       res.status(404).json({ message: 'No category was found with that id!' });
       return;
     }
-    res.status(200).json(category).json({ message: "Category retrieved successfully!" });
+    res.status(200).json({ category,  message: "Category retrieved successfully!" });
   } catch (err) {
     res.status(500).json(err.message);
   }
@@ -41,7 +41,7 @@ router.get("/:id", async (req, res) => {
 router.post("/", async (req, res) => {
   try {
     const category = await Category.create(req.body);
-    res.status(200).json(category).json({ message: "Category has been created!" });
+    res.status(200).json({ category,  message: "Category has been created!" });
   } catch (err) {
     res.status(500).json(err.message);
   }
@@ -57,7 +57,7 @@ router.put("/:id", async (req, res) => {
         id: req.params.id,
       },
     });
-    res.status(200).json(category);
+    res.status(200).json({ category, message:  "Category has been updated!" });
   } catch (err) {
     res.status(500).json(err.message);
   }
@@ -73,10 +73,10 @@ router.delete("/:id", async (req, res) => {
         id: req.params.id,
       },
     });
-    res.json(category).json({message: "This category was deleted successfuly!"});
+    res.json({ category, message: "This category was deleted successfuly!"});
   } catch (err) {
     res.status(500).json(err.message);
   }
 });
 
-module.exports = router;
+module.exports = router
